@@ -32,6 +32,7 @@ export function useCreateRetailSale() {
     mutationFn: (data: RetailSaleRequest) => retailSalesApi.create(data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['retail-sales'] })
+      qc.invalidateQueries({ queryKey: ['retail-sales-summary'] })
     },
   })
 }
@@ -42,6 +43,7 @@ export function useDeleteRetailSale() {
     mutationFn: (id: number) => retailSalesApi.delete(id),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['retail-sales'] })
+      qc.invalidateQueries({ queryKey: ['retail-sales-summary'] })
     },
   })
 }
