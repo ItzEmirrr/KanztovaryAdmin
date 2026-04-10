@@ -252,27 +252,31 @@ export function SalesHistoryPage() {
         )}
 
         {/* Pagination */}
-        {!isLoading && totalPages > 1 && (
+        {!isLoading && sales.length > 0 && (
           <div className="flex items-center justify-between px-4 py-3 border-t border-white/10">
             <span className="text-xs text-slate-500">
-              Страница {page + 1} из {totalPages}
+              {totalPages > 1
+                ? `Страница ${page + 1} из ${totalPages} · Всего ${totalElements}`
+                : `Всего ${totalElements} ${totalElements === 1 ? 'продажа' : totalElements < 5 ? 'продажи' : 'продаж'}`}
             </span>
-            <div className="flex gap-2">
-              <button
-                disabled={page === 0}
-                onClick={() => setPage((p) => p - 1)}
-                className="btn-ghost py-1.5 px-3 disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                <ChevronLeft size={14} />
-              </button>
-              <button
-                disabled={page + 1 >= totalPages}
-                onClick={() => setPage((p) => p + 1)}
-                className="btn-ghost py-1.5 px-3 disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                <ChevronRight size={14} />
-              </button>
-            </div>
+            {totalPages > 1 && (
+              <div className="flex gap-2">
+                <button
+                  disabled={page === 0}
+                  onClick={() => setPage((p) => p - 1)}
+                  className="btn-ghost py-1.5 px-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <ChevronLeft size={14} />
+                </button>
+                <button
+                  disabled={page + 1 >= totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                  className="btn-ghost py-1.5 px-3 disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  <ChevronRight size={14} />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>
