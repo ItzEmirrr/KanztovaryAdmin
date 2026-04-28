@@ -20,7 +20,7 @@ import { SalesHistoryPage } from './pages/retail/SalesHistoryPage'
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.VITE_BASE_PATH || '/'}>
         <Routes>
           {/* Auth routes */}
           <Route element={<AuthLayout />}>
