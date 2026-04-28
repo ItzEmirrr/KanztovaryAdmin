@@ -7,13 +7,15 @@ import { SaleModal } from '../../components/retail/SaleModal'
 import { TableSkeleton, Skeleton } from '../../components/shared/Skeleton'
 import { formatDate, formatMoney } from '../../lib/utils'
 
+const today = new Date().toISOString().slice(0, 10)
+
 export function SalesHistoryPage() {
   // Filter inputs (not yet applied)
-  const [fromInput, setFromInput] = useState('')
-  const [toInput,   setToInput]   = useState('')
+  const [fromInput, setFromInput] = useState(today)
+  const [toInput,   setToInput]   = useState(today)
   // Applied filters
-  const [appliedFrom, setAppliedFrom] = useState('')
-  const [appliedTo,   setAppliedTo]   = useState('')
+  const [appliedFrom, setAppliedFrom] = useState(today)
+  const [appliedTo,   setAppliedTo]   = useState(today)
   // Pagination
   const [page, setPage] = useState(0)
   // Modals
