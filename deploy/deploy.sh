@@ -7,7 +7,7 @@ cd "$(dirname "$0")/.."
 DEPLOY_DIR=/var/www/admin
 
 echo "==> Installing dependencies..."
-npm ci --omit=dev
+npm ci
 
 echo "==> Building..."
 npm run build
