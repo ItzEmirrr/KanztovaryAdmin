@@ -29,7 +29,7 @@ export interface CategoryRequest {
   name: string
   description: string
   slug: string
-  parentId: number | null
+  parentCategoryId: number | null
 }
 
 // ─── Brand ───────────────────────────────────────────────────────────────────

@@ -20,7 +20,7 @@ const schema = z.object({
   name: z.string().min(1, 'Название обязательно'),
   description: z.string(),
   slug: z.string().min(1, 'Slug обязателен'),
-  parentId: z.union([z.number(), z.null()]).optional(),
+  parentCategoryId: z.union([z.number(), z.null()]).optional(),
 })
 type FormData = z.infer<typeof schema>
 
@@ -129,7 +129,7 @@ export function CategoriesPage() {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { name: '', description: '', slug: '', parentId: null },
+    defaultValues: { name: '', description: '', slug: '', parentCategoryId: null },
   })
 
   watch('name') // keep watch active for slug auto-fill
@@ -142,7 +142,7 @@ export function CategoriesPage() {
       name: cat.name,
       description: cat.description,
       slug: cat.slug,
-      parentId: cat.parentCategoryId,
+      parentCategoryId: cat.parentCategoryId,
     })
   }
 
@@ -150,7 +150,7 @@ export function CategoriesPage() {
     setSelected(null)
     setIsNew(true)
     setEditingId(null)
-    reset({ name: '', description: '', slug: '', parentId: null })
+    reset({ name: '', description: '', slug: '', parentCategoryId: null })
   }
 
   const handleDelete = (id: number, name: string, hasChildren: boolean) => {
@@ -169,7 +169,7 @@ export function CategoriesPage() {
   }
 
   const onSubmit = async (data: FormData) => {
-    const payload = { ...data, parentId: data.parentId ?? null } as import('../types').CategoryRequest
+    const payload = { ...data, parentCategoryId: data.parentCategoryId ?? null } as import('../types').CategoryRequest
     if (isNew) {
       await createMutation.mutateAsync(payload)
     } else if (editingId) {
@@ -177,7 +177,7 @@ export function CategoriesPage() {
     }
     setIsNew(false)
     setSelected(null)
-    reset({ name: '', description: '', slug: '', parentId: null })
+    reset({ name: '', description: '', slug: '', parentCategoryId: null })
   }
 
   const tree = buildTree(categories ?? [])
@@ -283,8 +283,8 @@ export function CategoriesPage() {
                 <label className="label-base">Родительская категория</label>
                 <select
                   className="input-base"
-                  value={watch('parentId') ?? ''}
-                  onChange={(e) => setValue('parentId', e.target.value ? Number(e.target.value) : null)}
+                  value={watch('parentCategoryId') ?? ''}
+                  onChange={(e) => setValue('parentCategoryId', e.target.value ? Number(e.target.value) : null)}
                 >
                   <option value="">— Корневая категория —</option>
                   {categories
